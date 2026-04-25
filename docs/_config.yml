@@ -1,0 +1,4 @@
+title: cura-llm-native
+description: Run an LLM natively for direct GPU access — Apple Metal (macOS) and CUDA (Windows).
+url: https://chevp.github.io
+baseurl: /cura-llm-native
