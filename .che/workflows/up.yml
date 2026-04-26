@@ -1,0 +1,25 @@
+name: up
+description: Complete local build & startup — install Ollama, start the server, pull a model, and smoke-test it
+
+inputs:
+  - name: model
+    required: false
+    description: Model tag to pull and test (default llama3.1:8b-instruct-q4_K_M)
+  - name: prompt
+    required: false
+    description: Prompt for the smoke test (default "Erkläre Apple Metal in einem Satz.")
+
+steps:
+  - name: Install Ollama (idempotent)
+    script: scripts/install.sh
+
+  - name: Start Ollama server
+    script: scripts/start.sh
+
+  - name: Pull model
+    script: scripts/pull-model.sh
+    args: ["${model}"]
+
+  - name: Smoke-test prompt
+    script: scripts/test-prompt.sh
+    args: ["${model}", "${prompt}"]

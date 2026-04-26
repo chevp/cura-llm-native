@@ -1,0 +1,9 @@
+name: rag-up
+description: Start the Ollama server and pull the RAG-ready stack (chat + embedding model)
+
+steps:
+  - name: Start Ollama server
+    script: scripts/start.sh
+
+  - name: Pull RAG models (chat + embeddings)
+    script: scripts/setup-rag.sh
