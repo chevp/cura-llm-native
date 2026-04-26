@@ -34,6 +34,23 @@ This repo is the opposite trade-off: **native install, full GPU**. Use it when y
 
 ## Quick start
 
+### Install ohne Git (Release-Zip)
+
+Für Endnutzer ohne Git/Repo-Zugriff:
+
+1. **Ollama installieren** (plattform-spezifisch, einmalig):
+   - macOS: [ollama.com/download/mac](https://ollama.com/download/mac) → `.dmg` laden, in `Applications` ziehen, einmal starten
+   - Windows: [ollama.com/download/windows](https://ollama.com/download/windows) → `OllamaSetup.exe` ausführen
+2. **Release-Zip laden**: [Latest release](https://github.com/chevp/cura-llm-native/releases/latest) → `Source code (zip)`, entpacken
+3. **Starten**:
+   ```bash
+   cp .env.example .env        # macOS / Linux
+   ./scripts/start.sh          # bzw. .\scripts\start.ps1 auf Windows
+   ./scripts/pull-model.sh llama3.1:8b-instruct-q4_K_M
+   ```
+
+Vorteil ggü. reinem Ollama-Installer: vorgefertigte `.env` (KEEP_ALIVE=24h, FLASH_ATTENTION etc.) und `setup-rag.sh` für Chat+Embeddings in einem Schritt.
+
 ### macOS
 
 ```bash
