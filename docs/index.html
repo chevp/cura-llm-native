@@ -230,7 +230,7 @@
         <div class="relative z-10">
           <span class="material-symbols-outlined text-arctic-400 text-3xl mb-3 block">trending_up</span>
           <h3 class="font-semibold text-slate-100 mb-2">Heavier models welcome</h3>
-          <p class="text-slate-400 text-sm">Tuned for the 13B&ndash;70B range. Use it for vision, coder workloads, MoE generalists, and reasoning-heavy tasks that 7B can't carry.</p>
+          <p class="text-slate-400 text-sm">Tuned for the 13B&ndash;70B range &mdash; long German reports, anamneses, RAG over large sources, multilingual patient data.</p>
         </div>
       </div>
       <div class="card glass rounded-xl p-6">
@@ -343,6 +343,7 @@ Copy-Item .env.example .env
           <tr class="text-slate-300">
             <th class="text-left px-5 py-3 font-semibold">Model</th>
             <th class="text-left px-5 py-3 font-semibold">Disk</th>
+            <th class="text-left px-5 py-3 font-semibold">Strength</th>
             <th class="text-left px-5 py-3 font-semibold">Use case</th>
           </tr>
         </thead>
@@ -350,33 +351,58 @@ Copy-Item .env.example .env
           <tr class="border-b border-slate-700/30 bg-blue-500/5">
             <td class="px-5 py-3 mono text-arctic-300">llama3.1:8b-instruct-q4_K_M <span class="pill ml-1" style="font-size:9px;padding:2px 6px;">default</span></td>
             <td class="px-5 py-3">~5 GB</td>
+            <td class="px-5 py-3"><span class="pill" style="font-size:10px;padding:2px 8px;">all-rounder</span></td>
             <td class="px-5 py-3">Well-rounded chat, the cura-llm-native default</td>
+          </tr>
+          <tr class="border-b border-slate-700/30">
+            <td class="px-5 py-3 mono text-arctic-300">qwen2.5:7b-instruct</td>
+            <td class="px-5 py-3">~4.5 GB</td>
+            <td class="px-5 py-3"><span class="pill green" style="font-size:10px;padding:2px 8px;">DE text</span></td>
+            <td class="px-5 py-3">Noticeably stronger on German prose &amp; multilingual content than Llama-3.1</td>
+          </tr>
+          <tr class="border-b border-slate-700/30">
+            <td class="px-5 py-3 mono text-arctic-300">llama3:8b-instruct</td>
+            <td class="px-5 py-3">~5 GB</td>
+            <td class="px-5 py-3"><span class="pill" style="font-size:10px;padding:2px 8px;">stable</span></td>
+            <td class="px-5 py-3">Stable, well-formatted reports &mdash; the original Llama-3.0 line</td>
           </tr>
           <tr class="border-b border-slate-700/30">
             <td class="px-5 py-3 mono text-arctic-300">mistral:7b-instruct-q4_K_M</td>
             <td class="px-5 py-3">~4 GB</td>
+            <td class="px-5 py-3"><span class="pill" style="font-size:10px;padding:2px 8px;">snappy</span></td>
             <td class="px-5 py-3">Snappy fallback, matches the cura-llm-local default</td>
-          </tr>
-          <tr class="border-b border-slate-700/30">
-            <td class="px-5 py-3 mono text-arctic-300">phi3:mini</td>
-            <td class="px-5 py-3">~2 GB</td>
-            <td class="px-5 py-3">Tiny, very fast, short reasoning tasks</td>
           </tr>
           <tr>
             <td class="px-5 py-3 mono text-arctic-300">nomic-embed-text</td>
             <td class="px-5 py-3">~270 MB</td>
-            <td class="px-5 py-3">Embeddings (RAG), pairs with any chat model above</td>
+            <td class="px-5 py-3"><span class="pill" style="font-size:10px;padding:2px 8px;">embed</span></td>
+            <td class="px-5 py-3">Embeddings for RAG over reports &amp; anamneses</td>
           </tr>
         </tbody>
       </table>
     </div>
 
+    <div class="glass rounded-xl p-5 mt-4">
+      <div class="flex items-start gap-3">
+        <span class="material-symbols-outlined text-arctic-400">translate</span>
+        <div class="text-slate-400 text-sm">
+          <p class="text-slate-200 font-medium mb-1">Which 7B/8B for what?</p>
+          <ul class="space-y-1 list-disc ml-5">
+            <li><strong class="text-slate-300">German prose / patient data / anamneses</strong> &rarr; <code class="mono text-arctic-300">qwen2.5:7b-instruct</code> &mdash; noticeably more precise than Llama on DE</li>
+            <li><strong class="text-slate-300">Reports, lists, structured JSON output</strong> &rarr; <code class="mono text-arctic-300">llama3:8b-instruct</code> &mdash; stable and well-formatted</li>
+            <li><strong class="text-slate-300">Fast iteration / short chat</strong> &rarr; <code class="mono text-arctic-300">mistral:7b-instruct</code></li>
+            <li><strong class="text-slate-300">Best quality if hardware allows</strong> &rarr; <code class="mono text-arctic-300">mixtral:8x7b</code> (see heavyweight tier, ~26&nbsp;GB)</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
     <!-- Heavyweight -->
     <h3 class="text-lg font-semibold text-slate-200 mt-12 mb-2 flex items-center gap-2">
-      Heavyweight tier
+      Heavyweight tier &mdash; German reports
       <span class="pill amber" style="font-size:10px;padding:2px 8px;">native install pays off here</span>
     </h3>
-    <p class="text-slate-400 text-sm mb-4">For long-context chat, vision input, code-heavy tasks, multi-step reasoning, and top-tier general quality. Realistic on Apple Silicon M-Pro/Max with 32&nbsp;GB+ unified memory, or an NVIDIA GPU with &ge;&nbsp;16&nbsp;GB VRAM. The 70B row needs 64&nbsp;GB+ unified memory or 48&nbsp;GB+ VRAM.</p>
+    <p class="text-slate-400 text-sm mb-4">For long German reports, anamneses, multilingual patient data, and RAG over large sources. Realistic on Apple Silicon M-Pro/Max with 32&nbsp;GB+ unified memory, or an NVIDIA GPU with &ge;&nbsp;16&nbsp;GB VRAM. The 70B/72B rows need 64&nbsp;GB+ unified memory or 48&nbsp;GB+ VRAM.</p>
 
     <div class="glass rounded-xl overflow-hidden">
       <table class="w-full text-sm">
@@ -392,68 +418,56 @@ Copy-Item .env.example .env
           <tr class="border-b border-slate-700/30">
             <td class="px-5 py-3 mono text-arctic-300">mistral-nemo:12b-instruct-q4_K_M</td>
             <td class="px-5 py-3">~7 GB</td>
-            <td class="px-5 py-3"><span class="pill green" style="font-size:10px;padding:2px 8px;">long-ctx</span></td>
-            <td class="px-5 py-3">128k context window for document-heavy chat / RAG over long sources</td>
+            <td class="px-5 py-3"><span class="pill green" style="font-size:10px;padding:2px 8px;">long-ctx · DE</span></td>
+            <td class="px-5 py-3">128k context &mdash; ideal for long patient reports and longitudinal records</td>
+          </tr>
+          <tr class="border-b border-slate-700/30">
+            <td class="px-5 py-3 mono text-arctic-300">qwen2.5:14b-instruct</td>
+            <td class="px-5 py-3">~9 GB</td>
+            <td class="px-5 py-3"><span class="pill green" style="font-size:10px;padding:2px 8px;">DE text</span></td>
+            <td class="px-5 py-3">Stronger than Llama on German prose &mdash; cleanly structured reports</td>
           </tr>
           <tr class="border-b border-slate-700/30">
             <td class="px-5 py-3 mono text-arctic-300">llama3.1:13b-instruct-q4_K_M</td>
             <td class="px-5 py-3">~8 GB</td>
-            <td class="px-5 py-3"><span class="pill" style="font-size:10px;padding:2px 8px;">quality</span></td>
+            <td class="px-5 py-3"><span class="pill" style="font-size:10px;padding:2px 8px;">stable</span></td>
             <td class="px-5 py-3">Solid step up from 8B, fits 12&nbsp;GB VRAM / 16&nbsp;GB unified</td>
           </tr>
           <tr class="border-b border-slate-700/30">
-            <td class="px-5 py-3 mono text-arctic-300">llama3.2-vision:11b</td>
-            <td class="px-5 py-3">~8 GB</td>
-            <td class="px-5 py-3"><span class="pill violet" style="font-size:10px;padding:2px 8px;">vision</span></td>
-            <td class="px-5 py-3">Image input: screenshots, diagrams, document scans, UI mockups</td>
-          </tr>
-          <tr class="border-b border-slate-700/30">
-            <td class="px-5 py-3 mono text-arctic-300">llava:13b</td>
-            <td class="px-5 py-3">~8 GB</td>
-            <td class="px-5 py-3"><span class="pill violet" style="font-size:10px;padding:2px 8px;">vision</span></td>
-            <td class="px-5 py-3">Vision baseline with broad ecosystem support, classic LLaVA pipeline</td>
-          </tr>
-          <tr class="border-b border-slate-700/30">
-            <td class="px-5 py-3 mono text-arctic-300">qwen2.5-coder:7b</td>
-            <td class="px-5 py-3">~5 GB</td>
-            <td class="px-5 py-3"><span class="pill" style="font-size:10px;padding:2px 8px;">coder</span></td>
-            <td class="px-5 py-3">Lightweight coder, fast iteration on backend / Angular snippets</td>
-          </tr>
-          <tr class="border-b border-slate-700/30">
-            <td class="px-5 py-3 mono text-arctic-300">deepseek-coder-v2:16b</td>
-            <td class="px-5 py-3">~9 GB</td>
-            <td class="px-5 py-3"><span class="pill" style="font-size:10px;padding:2px 8px;">coder MoE</span></td>
-            <td class="px-5 py-3">MoE coder, snappy for its capability tier &mdash; strong general code</td>
+            <td class="px-5 py-3 mono text-arctic-300">gemma2:27b-instruct-q4_K_M</td>
+            <td class="px-5 py-3">~16 GB</td>
+            <td class="px-5 py-3"><span class="pill green" style="font-size:10px;padding:2px 8px;">DE text</span></td>
+            <td class="px-5 py-3">Google Gemma&nbsp;2 &mdash; very solid German output, good report phrasing</td>
           </tr>
           <tr class="border-b border-slate-700/30 bg-blue-500/5">
-            <td class="px-5 py-3 mono text-arctic-300">qwen2.5-coder:32b</td>
+            <td class="px-5 py-3 mono text-arctic-300">qwen2.5:32b-instruct-q4_K_M</td>
             <td class="px-5 py-3">~20 GB</td>
-            <td class="px-5 py-3"><span class="pill" style="font-size:10px;padding:2px 8px;">coder</span></td>
-            <td class="px-5 py-3">Top open coder for backend, frontend, infra and SQL</td>
+            <td class="px-5 py-3"><span class="pill green" style="font-size:10px;padding:2px 8px;">DE top mid</span></td>
+            <td class="px-5 py-3">Best German quality in the mid-size class &mdash; precise, formal register</td>
           </tr>
           <tr class="border-b border-slate-700/30">
-            <td class="px-5 py-3 mono text-arctic-300">deepseek-r1:32b</td>
+            <td class="px-5 py-3 mono text-arctic-300">command-r:35b</td>
             <td class="px-5 py-3">~20 GB</td>
-            <td class="px-5 py-3"><span class="pill amber" style="font-size:10px;padding:2px 8px;">reasoning</span></td>
-            <td class="px-5 py-3">Multi-step reasoning, derivations, planning &mdash; explicit chain-of-thought</td>
+            <td class="px-5 py-3"><span class="pill green" style="font-size:10px;padding:2px 8px;">RAG · DE</span></td>
+            <td class="px-5 py-3">Cohere Command-R &mdash; RAG-optimized, strong German, built for citations</td>
           </tr>
           <tr class="border-b border-slate-700/30">
             <td class="px-5 py-3 mono text-arctic-300">mixtral:8x7b-instruct-q4_K_M</td>
             <td class="px-5 py-3">~26 GB</td>
-            <td class="px-5 py-3"><span class="pill" style="font-size:10px;padding:2px 8px;">MoE</span></td>
-            <td class="px-5 py-3">Generalist MoE: broad knowledge, fast for its size, partial offload OK</td>
+            <td class="px-5 py-3"><span class="pill" style="font-size:10px;padding:2px 8px;">MoE · multi-lang</span></td>
+            <td class="px-5 py-3">Very good when hardware allows &mdash; broad knowledge, fast for its size, solid German</td>
           </tr>
           <tr class="border-b border-slate-700/30">
-            <td class="px-5 py-3 mono text-arctic-300">llama3.1:70b-instruct-q4_K_M</td>
-            <td class="px-5 py-3">~40 GB</td>
-            <td class="px-5 py-3"><span class="pill green" style="font-size:10px;padding:2px 8px;">top-tier</span></td>
-            <td class="px-5 py-3">Top-tier generalist for architecture &amp; design discussions</td>
-          </tr>
-          <tr>
             <td class="px-5 py-3 mono text-arctic-300">llama3.3:70b-instruct-q4_K_M</td>
             <td class="px-5 py-3">~43 GB</td>
             <td class="px-5 py-3"><span class="pill green" style="font-size:10px;padding:2px 8px;">top-tier</span></td>
-            <td class="px-5 py-3">Latest 70B Llama: better instruction following, current go-to at this size</td>
+            <td class="px-5 py-3">Latest 70B Llama &mdash; best instruction following, very good report prose</td>
+          </tr>
+          <tr>
+            <td class="px-5 py-3 mono text-arctic-300">qwen2.5:72b-instruct-q4_K_M</td>
+            <td class="px-5 py-3">~44 GB</td>
+            <td class="px-5 py-3"><span class="pill green" style="font-size:10px;padding:2px 8px;">top-tier DE</span></td>
+            <td class="px-5 py-3">Best open model for German reports &mdash; top pick when 64&nbsp;GB+ is available</td>
           </tr>
         </tbody>
       </table>
@@ -476,15 +490,15 @@ Copy-Item .env.example .env
           <tbody class="text-slate-400">
             <tr class="border-b border-slate-700/30">
               <td class="py-2">16 GB</td>
-              <td class="py-2 mono text-arctic-300 text-xs">llama3.1:8b-instruct-q4_K_M</td>
+              <td class="py-2 mono text-arctic-300 text-xs">llama3.1:8b · qwen2.5:7b · llama3:8b</td>
             </tr>
             <tr class="border-b border-slate-700/30">
               <td class="py-2">32 GB</td>
-              <td class="py-2 mono text-arctic-300 text-xs">qwen2.5-coder:32b · mixtral:8x7b</td>
+              <td class="py-2 mono text-arctic-300 text-xs">qwen2.5:32b · gemma2:27b · mixtral:8x7b · command-r:35b</td>
             </tr>
             <tr>
               <td class="py-2">64 GB+</td>
-              <td class="py-2 mono text-arctic-300 text-xs">llama3.3:70b-instruct-q4_K_M</td>
+              <td class="py-2 mono text-arctic-300 text-xs">qwen2.5:72b · llama3.3:70b</td>
             </tr>
           </tbody>
         </table>
@@ -504,19 +518,19 @@ Copy-Item .env.example .env
           <tbody class="text-slate-400">
             <tr class="border-b border-slate-700/30">
               <td class="py-2">8 GB</td>
-              <td class="py-2 mono text-arctic-300 text-xs">llama3.1:8b-instruct-q4_K_M</td>
+              <td class="py-2 mono text-arctic-300 text-xs">llama3.1:8b · qwen2.5:7b · llama3:8b</td>
             </tr>
             <tr class="border-b border-slate-700/30">
               <td class="py-2">12 GB</td>
-              <td class="py-2 mono text-arctic-300 text-xs">mistral-nemo:12b-instruct-q4_K_M</td>
+              <td class="py-2 mono text-arctic-300 text-xs">mistral-nemo:12b · qwen2.5:14b · llama3.1:13b</td>
             </tr>
             <tr class="border-b border-slate-700/30">
               <td class="py-2">16–24 GB</td>
-              <td class="py-2 mono text-arctic-300 text-xs">qwen2.5-coder:32b · mixtral:8x7b (partial offload)</td>
+              <td class="py-2 mono text-arctic-300 text-xs">qwen2.5:32b · gemma2:27b · command-r:35b · mixtral:8x7b (partial offload)</td>
             </tr>
             <tr>
               <td class="py-2">48 GB+</td>
-              <td class="py-2 mono text-arctic-300 text-xs">llama3.3:70b-instruct-q4_K_M</td>
+              <td class="py-2 mono text-arctic-300 text-xs">qwen2.5:72b · llama3.3:70b</td>
             </tr>
           </tbody>
         </table>
@@ -529,12 +543,13 @@ Copy-Item .env.example .env
         <div>
           <p class="text-slate-200 font-medium mb-1">Picking from the heavyweight tier</p>
           <ul class="text-slate-400 text-sm space-y-1.5 list-disc ml-5">
-            <li><strong class="text-slate-300">Long documents / RAG over big sources</strong> &rarr; <code class="mono text-arctic-300">mistral-nemo:12b</code> (128k ctx)</li>
-            <li><strong class="text-slate-300">Image / screenshot / diagram input</strong> &rarr; <code class="mono text-arctic-300">llama3.2-vision:11b</code> or <code class="mono text-arctic-300">llava:13b</code></li>
-            <li><strong class="text-slate-300">Code generation &amp; refactor</strong> &rarr; <code class="mono text-arctic-300">qwen2.5-coder:32b</code> (or 7b for fast loop)</li>
-            <li><strong class="text-slate-300">Reasoning / multi-step planning</strong> &rarr; <code class="mono text-arctic-300">deepseek-r1:32b</code></li>
-            <li><strong class="text-slate-300">Best general quality you can run locally</strong> &rarr; <code class="mono text-arctic-300">llama3.3:70b-instruct-q4_K_M</code></li>
-            <li><strong class="text-slate-300">Best speed-vs-knowledge ratio above 7B</strong> &rarr; <code class="mono text-arctic-300">mixtral:8x7b</code> (MoE)</li>
+            <li><strong class="text-slate-300">Long reports / RAG over large sources</strong> &rarr; <code class="mono text-arctic-300">mistral-nemo:12b</code> (128k context)</li>
+            <li><strong class="text-slate-300">RAG with citations over German documents</strong> &rarr; <code class="mono text-arctic-300">command-r:35b</code></li>
+            <li><strong class="text-slate-300">Best German report quality up to 32B</strong> &rarr; <code class="mono text-arctic-300">qwen2.5:32b-instruct</code> or <code class="mono text-arctic-300">gemma2:27b</code></li>
+            <li><strong class="text-slate-300">Stable German reports on moderate hardware</strong> &rarr; <code class="mono text-arctic-300">qwen2.5:14b-instruct</code> or <code class="mono text-arctic-300">llama3.1:13b</code></li>
+            <li><strong class="text-slate-300">Best open-source German quality overall</strong> &rarr; <code class="mono text-arctic-300">qwen2.5:72b-instruct-q4_K_M</code></li>
+            <li><strong class="text-slate-300">Best general quality overall</strong> &rarr; <code class="mono text-arctic-300">llama3.3:70b-instruct-q4_K_M</code></li>
+            <li><strong class="text-slate-300">Best knowledge/speed ratio (if hardware allows: 32&nbsp;GB+ unified / 24&nbsp;GB+ VRAM)</strong> &rarr; <code class="mono text-arctic-300">mixtral:8x7b</code> (MoE)</li>
           </ul>
         </div>
       </div>
@@ -597,7 +612,7 @@ Copy-Item .env.example .env
           <span class="material-symbols-outlined text-arctic-400 text-3xl mb-3 block">laptop_mac</span>
           <h3 class="font-semibold text-slate-100 mb-2">macOS Apple Silicon</h3>
           <p class="text-slate-400 text-sm mb-3">Metal acceleration auto-detected. Watch unified-memory pressure with <code class="mono text-arctic-300">mactop</code> or Activity Monitor &mdash; if you see swapping, drop a tier.</p>
-          <p class="text-slate-500 text-xs"><strong class="text-slate-400">Best models:</strong> 8B-q4 default, 32B-class on M-Pro/Max with 32 GB+, 70B-q4 on 64 GB+.</p>
+          <p class="text-slate-500 text-xs"><strong class="text-slate-400">Best models:</strong> 8B-q4 default, 27B–35B class on M-Pro/Max with 32 GB+, 70B–72B-q4 on 64 GB+.</p>
         </div>
       </div>
       <div class="card glass rounded-xl p-6">
@@ -698,9 +713,9 @@ OLLAMA_HOST=<span class="str">127.0.0.1:11435</span>   <span class="cmt"># add t
         </summary>
         <div class="mt-4 text-slate-400 text-sm space-y-2">
           <p>q4 70B needs ~46&nbsp;GB. On a 32&nbsp;GB Mac, fall back one tier:</p>
-          <pre class="code-block">ollama pull mixtral:8x7b-instruct-q4_K_M
+          <pre class="code-block">ollama pull qwen2.5:32b-instruct-q4_K_M
 <span class="cmt"># or</span>
-ollama pull qwen2.5-coder:32b</pre>
+ollama pull mixtral:8x7b-instruct-q4_K_M</pre>
         </div>
       </details>
 
